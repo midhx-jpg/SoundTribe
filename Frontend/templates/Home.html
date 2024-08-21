@@ -1,0 +1,853 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Sound Tribe</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'assets/img/core-img/favicon.ico' %}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- Navbar Area -->
+        <div class="oneMusic-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                        <!-- Nav brand -->
+                        <a href="{% url 'home'%}" class="nav-brand"><img src="{% static 'assets/img/core-img/sound.png' %}" alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{% url 'home'%}">Home</a></li>
+                                    <li><a href="{% url 'album' alphabet="all" %}">Albums</a></li>
+                                    <li><a href="#">Genres</a>
+                                        <ul class="dropdown">
+                                            {% for i in genre %}
+                                            <li><a href="{% url 'singlegenre' genrename=i.Genre_name%}">{{i.Genre_name}}</a></li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </li>
+                                    <li><a href="{% url 'event' %}">Events</a></li>
+                                    <li><a href="{% url 'news' %}">News</a></li>
+                                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                                    <li><a href="{% url 'history' %}">Booking History</a></li>
+                                    
+                                </ul>
+
+                                <!-- Login/Register & Cart Button -->
+                                <div class="login-register-cart-button d-flex align-items-center">
+                                    <!-- Login/Register -->
+
+                                    <div class="login-register-btn mr-50">
+                                        {% if user.is_authenticated %}
+                                        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Hey {{request.user.username}}/Logout</a> </li>
+                                        {% else %}
+	                                    <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register/Login</a></li>
+                                        {% endif %}
+
+                                        
+
+
+                                    </div>
+
+                                    <!-- Cart Button -->
+                                    <!-- <div class="cart-btn">
+                                        <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <!-- Nav End -->
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Hero Area Start ##### -->
+    <section class="hero-area">
+        <div class="hero-slides owl-carousel">
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'assets/img/bg-img/cobain backround.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hero-slides-content text-center">
+                                <h6 data-animation="fadeInUp" data-delay="100ms">Latest album</h6>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Houdini <span>Houdini</span></h2>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'album' alphabet="all" %}" class="btn oneMusic-btn mt-50">Discover all<i class="fa fa-angle-double-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide d-flex align-items-center justify-content-center">
+                <!-- Slide Img -->
+                <div class="slide-img bg-img" style="background-image: url({% static 'assets/img/bg-img/rockband.jpg' %});"></div>
+                <!-- Slide Content -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="hero-slides-content text-center">
+                                <h6 data-animation="fadeInUp" data-delay="100ms">Popular album</h6>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Smells Like Teen Spirit <span>Smells Like Teen Spirit </span></h2>
+                                <a data-animation="fadeInUp" data-delay="500ms" href="{% url 'album' alphabet="all" %}" class="btn oneMusic-btn mt-50">Discover all<i class="fa fa-angle-double-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Latest Albums Area Start ##### -->
+    <section class="latest-albums-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading style-2">
+                        <p>See Some</p>
+                        <h2>Hip Hop Albums</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9">
+                    <div class="ablums-text text-center mb-70">
+                        <p>Hip hop or hip-hop, also known as rap and formerly as disco rap, is a genre of popular music that originated in the early 1970s from African Americans and Afro-Caribbean immigrants in the Bronx, a borough of New York City.Hip-hop music originated as an anti-drug and anti-violence genre[16] consisting of stylized rhythmic music (usually built around drum beats) that often accompanies rapping, a rhythmic delivery of poetic speech. In the early 1990s, a professor of African American studies at Temple University said, "Hip-hop is something that blacks can unequivocally claim as their own."[18] By the 21st century, the field of rappers had diversified by both race and gender. The music developed as part of the broader hip-hop culture, a subculture defined by four key stylistic elements: MCing/rapping, DJing/scratching with turntables, breakdancing, and graffiti art. While often used to refer solely to rapping and rap music, "hip hop" more properly denotes the practice of the entire subculture. The term hip hop music is sometimes used synonymously with the term rap music, though rapping is not a required component of hip hop music; the genre may also incorporate other elements of the culture, including DJing, turntablism, scratching, beatboxing, and instrumental tracks.</p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="albums-slideshow owl-carousel">
+                        {% for i in hiphop %}
+                        <!-- Single Album -->
+                        <div class="single-album">
+                            <a href="{% url "music_player" mid=i.id %}">
+                                <img src="{{i.Song_Image.url}}" alt="" style="height:200px">
+                            <div class="album-info">
+                                <a href="#">
+                                    <h5>{{i.Song_name}}</h5>
+                                </a>
+                                <p>{{i.Artist_name}}</p>
+<!--                                <audio id="Player" controls>-->
+<!--                                <source src="{{i.Song.url}}">-->
+<!--                            </audio>-->
+                            </div>
+                            </a>
+                            
+                        </div>
+                        {% endfor %}
+
+
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="{% static 'assets/img/bg-img/a2.jpg' %}" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>Sam Smith</h5>-->
+<!--                                </a>-->
+<!--                                <p>Underground</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="{% static 'assets/img/bg-img/a3.jpg' %}" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>Will I am</h5>-->
+<!--                                </a>-->
+<!--                                <p>First</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="{% static 'assets/img/bg-img/a4.jpg' %}" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>The Cure</h5>-->
+<!--                                </a>-->
+<!--                                <p>Second Song</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="img/bg-img/a5.jpg" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>DJ SMITH</h5>-->
+<!--                                </a>-->
+<!--                                <p>The Album</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="img/bg-img/a6.jpg" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>The Ustopable</h5>-->
+<!--                                </a>-->
+<!--                                <p>Unplugged</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="img/bg-img/a7.jpg" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>Beyonce</h5>-->
+<!--                                </a>-->
+<!--                                <p>Songs</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">-->
+                            <div class="col-12">
+                                <div class="load-more-btn text-center">
+                                     <a href="{% url 'singlegenre' genrename='Hip hop' %}" class="btn oneMusic-btn">Listen All  Hip hops<i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                             </div>
+                        </div>
+    </section>
+
+    <!-- ##### Latest Albums Area End ##### -->
+
+    <!-- ##### Buy Now Area Start ##### -->
+      <section class="latest-albums-area section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading style-2">
+                        <p>See Some</p>
+                        <h2>Metal Band  Albums</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9">
+                    <div class="ablums-text text-center mb-70">
+                        <p>Heavy metal (or simply metal) is a genre of rock music that developed in the late 1960s and early 1970s, largely in the United Kingdom and United States.[2] With roots in blues rock, psychedelic rock and acid rock, heavy metal bands developed a thick, monumental sound characterized by distorted guitars, extended guitar solos, emphatic beats and loudness.
+
+In 1968, three of the genre's most famous pioneers – British bands Led Zeppelin, Black Sabbath and Deep Purple – were founded.[3] Though they came to attract wide audiences, they were often derided by critics. Several American bands modified heavy metal into more accessible forms during the 1970s: the raw, sleazy sound and shock rock of Alice Cooper and Kiss; the blues-rooted rock of Aerosmith; and the flashy guitar leads and party rock of Van Halen.[4] </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="albums-slideshow owl-carousel">
+                        {% for i in metal %}
+                        <!-- Single Album -->
+                         
+                            <div class="single-album">
+                                <a href="{% url "music_player" mid=i.id %}">
+                            <img src="{{i.Song_Image.url}}" alt="" style="height:200px">
+                            <div class="album-info">
+                                <a href="#">
+                                    <h5>{{i.Song_name}}</h5>
+                                </a>
+                                <p>{{i.Artist_name}}</p>
+<!--                                <audio id="Player" controls>-->
+<!--                                <source src="{{i.Song.url}}">-->
+<!--                            </audio>-->
+                            </div>
+                        </a>
+                        </div>
+                   
+                        
+                        {% endfor %}
+
+
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="{% static 'assets/img/bg-img/a2.jpg' %}" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>Sam Smith</h5>-->
+<!--                                </a>-->
+<!--                                <p>Underground</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="{% static 'assets/img/bg-img/a3.jpg' %}" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>Will I am</h5>-->
+<!--                                </a>-->
+<!--                                <p>First</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="{% static 'assets/img/bg-img/a4.jpg' %}" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>The Cure</h5>-->
+<!--                                </a>-->
+<!--                                <p>Second Song</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="img/bg-img/a5.jpg" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>DJ SMITH</h5>-->
+<!--                                </a>-->
+<!--                                <p>The Album</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="img/bg-img/a6.jpg" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>The Ustopable</h5>-->
+<!--                                </a>-->
+<!--                                <p>Unplugged</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                        &lt;!&ndash; Single Album &ndash;&gt;-->
+<!--                        <div class="single-album">-->
+<!--                            <img src="img/bg-img/a7.jpg" alt="">-->
+<!--                            <div class="album-info">-->
+<!--                                <a href="#">-->
+<!--                                    <h5>Beyonce</h5>-->
+<!--                                </a>-->
+<!--                                <p>Songs</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">-->
+                            <div class="col-12">
+                                <div class="load-more-btn text-center">
+                                     <a href="{% url 'singlegenre' genrename='Metal band' %}" class="btn oneMusic-btn">Listen All  Metal Music<i class="fa fa-angle-double-right"></i></a>
+                                </div>
+                             </div>
+                        </div>
+    </section>
+    <!-- ##### Buy Now Area End ##### -->
+
+    <!-- ##### Featured Artist Area Start ##### -->
+    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image: url({% static 'assets/img/bg-img/bg-4.jpg' %});">
+        <div class="container">
+            <div class="row align-items-end">
+                <div class="col-12 col-md-5 col-lg-4">
+                    <div class="featured-artist-thumb">
+                        <img src="{% static 'assets/img/Tobey_Eminem.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-12 col-md-7 col-lg-8">
+                    <div class="featured-artist-content">
+                        <!-- Section Heading -->
+                        <div class="section-heading white text-left mb-30">
+                            <p>See what’s new</p>
+                            <h2>Tobey (feat. Big Sean and BabyTron)</h2>
+                        </div>
+                        <p>Eminem has once again demonstrated his enduring influence in the rap game with the release of his highly anticipated music video for “Tobey”.The track, featuring fellow Detroit natives Big Sean and BabyTron, has received major attention since its release and received the visual treatment that fans have been waiting for.</p>
+                        <div class="song-play-area" id="progress">
+                            <div class="song-name">
+<!--                                <p>01. Main Hit Song</p>-->
+                            </div>
+                            <audio preload="auto" controls id="song">
+                                <source src="{% static 'assets/audio/Tobey_eminem.mp3' %}">
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Featured Artist Area End ##### -->
+
+    <!-- ##### Miscellaneous Area Start ##### -->
+    <section class="miscellaneous-area section-padding-100-0">
+        <div class="container">
+            <div class="row">
+                <!-- ***** Weeks Top ***** -->
+                <div class="col-12 col-lg-4">
+                    <div class="weeks-top-area mb-100">
+                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                            <p>See what’s new</p>
+                            <h2>This week’s top</h2>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/week/smells_like_teen_spirit.jpg' %}" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>Smells like Teen Spirit</h6>
+                                <p>Nirvana</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="150ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/week/The_Real_Slim_Shady_CD_cover.jpg' %}" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>Stan</h6>
+                                <p>Eminem</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="200ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/week/sweet child o mine.jpg' %}" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>Sweet Child O' mine</h6>
+                                <p>Guns N Roses</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="250ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/week/california_love_cover.jpeg' %}" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>California Love</h6>
+                                <p>2 Pac</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="300ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/week/stairway_to_heaven_cover.jpg' %}" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>Stairway to Heaven</h6>
+                                <p>Led Zepplein</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="350ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/sa.jpg' %}" alt="">
+                            </div>
+                            <div class="content-">
+                                <h6>What Economy</h6>
+                                <p>SA</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ***** New Hits Songs ***** -->
+                <div class="col-12 col-lg-4">
+                    <div class="new-hits-area mb-100">
+                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+                            <p>See what’s new</p>
+                            <h2>New Hits</h2>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="100ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="{% static 'assets/img/slut me out 2.jpg' %}" alt="">
+                                </div>
+                                <div class="content-">
+                                    <h6>SLUT ME OUT 2</h6>
+                                    <p>NLE Choppa</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{% static 'assets/audio/slut me out 2.mp3' %}">
+                            </audio>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="150ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="{% static 'assets/img/cali 2 canada.jpg' %}" alt="">
+                                </div>
+                                <div class="content-">
+                                    <h6>Cali 2 Canada</h6>
+                                    <p>Snoop Dogg</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{% static 'assets/audio/cali 2 canada.mp3' %}">
+                            </audio>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="200ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="{% static 'assets/img/a lot.jpg' %}" alt="">
+                                </div>
+                                <div class="content-">
+                                    <h6>A Lot</h6>
+                                    <p>21 Savage</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{% static 'assets/audio/a lot.mp3' %}">
+                            </audio>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="250ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="{% static 'assets/img/2 of amerikaz most wanted.jpg' %}" alt="">
+                                </div>
+                                <div class="content-">
+                                    <h6>2 of Amerilaz Most Wanted</h6>
+                                    <p>2 Pac</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{% static 'assets/audio/2 of amerikaz most wanted.mp3' %}">
+                            </audio>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="300ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="{% static 'assets/img/alif.jpg' %}" alt="">
+                                </div>
+                                <div class="content-">
+                                    <h6>Alif</h6>
+                                    <p>Dabzee,SA</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{% static 'assets/audio/alif.mp3' %}">
+                            </audio>
+                        </div>
+
+                        <!-- Single Top Item -->
+                        <div class="single-new-item d-flex align-items-center justify-content-between wow fadeInUp" data-wow-delay="350ms">
+                            <div class="first-part d-flex align-items-center">
+                                <div class="thumbnail">
+                                    <img src="{% static 'assets/img/kl42.jpg' %}" alt="">
+                                </div>
+                                <div class="content-">
+                                    <h6>KL 42</h6>
+                                    <p>Gabri</p>
+                                </div>
+                            </div>
+                            <audio preload="auto" controls>
+                                <source src="{% static 'assets/audio/kl42.mp3' %}">
+                            </audio>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ***** Popular Artists ***** -->
+                <div class="col-12 col-lg-4">
+                    <div class="popular-artists-area mb-100">
+                        <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
+<!--                            <p>See what’s new</p>-->
+                            <h2>Popular Artists</h2>
+                        </div>
+
+                        <!-- Single Artist -->
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="100ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/kurt cobain.avif' %}" alt="" style="height:80px">
+                            </div>
+                            <div class="content-">
+                                <p>Kurt Cobain</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Artist -->
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="150ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/Eminem.webp' %}" alt="" style="height:80px">
+                            </div>
+                            <div class="content-">
+                                <p>Eminem</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Artist -->
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="200ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/2pac.webp' %}" alt="" style="height:80px">
+                            </div>
+                            <div class="content-">
+                                <p>2 Pac</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Artist -->
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="250ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/wiz khalifa.jpg' %}" alt="" style="height:80px">
+                            </div>
+                            <div class="content-">
+                                <p>Wiz Khalifa</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Artist -->
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="300ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/sa.jpg' %}" alt="" style="height:80px">
+                            </div>
+                            <div class="content-">
+                                <p>SA</p>
+                            </div>
+                        </div>
+
+                        <!-- Single Artist -->
+                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="350ms">
+                            <div class="thumbnail">
+                                <img src="{% static 'assets/img/travis scott.webp' %}" alt="" style="height:80px">
+                            </div>
+                            <div class="content-">
+                                <p>Travis Scott</p>
+                            </div>
+                        </div>
+
+<!--                        &lt;!&ndash; Single Artist &ndash;&gt;-->
+<!--                        <div class="single-artists d-flex align-items-center wow fadeInUp" data-wow-delay="400ms">-->
+<!--                            <div class="thumbnail">-->
+<!--                                <img src="{% static 'assets/img/vedan.jpg' %}" alt="" style="height:80px">-->
+<!--                            </div>-->
+<!--                            <div class="content-">-->
+<!--                                <p>Vedan</p>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Miscellaneous Area End ##### -->
+
+    <!-- ##### Contact Area Start ##### -->
+    <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url({% static 'assets/img/bg-img/bg-2.jpg' %});">
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-12">-->
+<!--                    <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">-->
+<!--                        <p>See what’s new</p>-->
+<!--                        <h2>Get In Touch</h2>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="row">-->
+<!--                <div class="col-12">-->
+<!--                    &lt;!&ndash; Contact Form Area &ndash;&gt;-->
+<!--                    <div class="contact-form-area">-->
+<!--                        <form action="#" method="post">-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-6 col-lg-4">-->
+<!--                                    <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
+<!--                                        <input type="text" class="form-control" id="name" placeholder="Name">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-6 col-lg-4">-->
+<!--                                    <div class="form-group wow fadeInUp" data-wow-delay="200ms">-->
+<!--                                        <input type="email" class="form-control" id="email" placeholder="E-mail">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-lg-4">-->
+<!--                                    <div class="form-group wow fadeInUp" data-wow-delay="300ms">-->
+<!--                                        <input type="text" class="form-control" id="subject" placeholder="Subject">-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-12">-->
+<!--                                    <div class="form-group wow fadeInUp" data-wow-delay="400ms">-->
+<!--                                        <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">-->
+<!--                                    <button class="btn oneMusic-btn mt-30" type="submit">Send <i class="fa fa-angle-double-right"></i></button>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </section>
+    <!-- ##### Contact Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row d-flex flex-wrap align-items-center">
+                <div class="col-12 col-md-6">
+                    <a href="{% url 'home'%}"><img src="{% static 'assets/img/core-img/sound.png' %}" alt="" style="height:180px"></a>
+                    <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Midhun Philip<i class="fa fa-heart-o" aria-hidden="true"></i>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+<!-- <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/4f5b4bdf-5756-48fc-9d6c-55fd24134058"></iframe> -->
+                </div>
+                
+
+                <div class="col-12 col-md-6">
+                    <div class="footer-nav">
+                        <ul>
+                            <li><a href="{% url 'home'%}">Home</a></li>
+                            <li><a href="{% url 'album' alphabet="all"%}">Albums</a></li>
+                            <li><a href="{% url 'event'%}">Events</a></li>
+                            <li><a href="{% url 'news'%}">News</a></li>
+                            <li><a href="{% url 'contact'%}">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- ##### Footer Area Start ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="{% static 'assets/js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'assets/js/bootstrap/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'assets/js/bootstrap/bootstrap.min.js' %}"></script>
+    <!-- All Plugins js -->
+    <script src="{% static 'assets/js/plugins/plugins.js' %}"></script>
+    <!-- Active js -->
+    <script src="{% static 'assets/js/active.js' %}"></script>
+
+    <script>
+        let progress=document.getElementById("progress");
+        let song=document.getElementById("song");
+      
+        
+      
+        song.onloadedmetadata=function(){
+          progress.max=song.duration;
+          progress.value=song.currentTime;
+        }
+        
+          progress.onchange=function(){
+            song.play();
+            song.currentTime=progress.value;
+            
+          }
+      
+      </script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+      {% for i in messages %}
+              {% if i.tags == 'warning' %}
+                            <script>
+                                  swal('{{i}}', ' ', 'warning');
+                            </script>
+              {% elif i.tags == 'error' %}
+                            <script>
+                                  swal('{{i}}', ' ', 'error');
+                            </script>
+              {% elif i.tags == 'info' %}
+                            <script>
+                                  swal('{{i}}', ' ', 'info');
+                            </script>
+              {% else %}
+                            <script>
+                                  swal('{{i}}', ' ', 'success');
+                            </script>
+              {% endif %}
+      {% endfor %}
+{% endif %}
+
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<df-messenger
+  chat-icon="https:&#x2F;&#x2F;www.dking-gallery.com&#x2F;pix&#x2F;Scrojo2&#x2F;Sts9.2_1602.jpg"
+  intent="WELCOME"
+  chat-title="SoundTribeBot"
+  agent-id="4f5b4bdf-5756-48fc-9d6c-55fd24134058"
+  language-code="en"
+></df-messenger>
+
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sound Tribe</title>
+</head>
+<body>
+<div class="col-lg-10">
+         <div class="card">
+           <div class="card-body">
+           <div class="card-title">Add an Event here..</div>
+           <hr>
+            <form action="{% url 'save_event' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+           <div class="form-group">
+            <label for="input-1">Event Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Enter Event Name" name="ename">
+           </div>
+           <div class="form-group">
+            <label for="input-2">Stage/Hall of the Event</label>
+            <input type="text" class="form-control" id="input-2" placeholder="Enter Venue Name" name="venue">
+           </div>
+           <div class="form-group">
+            <label for="input-3">Ticket Price</label>
+            <input type="text" class="form-control" id="input-3" placeholder="Enter Ticket Price" name="price">
+           </div>
+
+                <div class="form-group">
+            <label for="input-3">Date of Event</label>
+            <input type="date" class="form-control" id="datePicker" placeholder="Enter Date" name="date">
+           </div>
+
+                <div class="form-group">
+            <label for="input-3">Time(starting - ending)</label>
+            <input type="text" class="form-control" id="input-3" placeholder="Enter Time" name="time">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Lead Performer Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Lead Performer Name" name="p1name">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Lead Performer Role</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Lead Performer Role" name="p1role">
+           </div>
+
+           <div class="form-group">
+            <label for="input-5">Insert Image for Lead Performer</label>
+            <input type="file" class="form-control" id="input-5" name="p1image">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Second Performer Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Second Performer Name" name="p2name">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Second Performer Role</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Second Performer Role" name="p2role">
+           </div>
+
+           <div class="form-group">
+            <label for="input-5">Insert Image for Second Performer</label>
+            <input type="file" class="form-control" id="input-5" name="p2image">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Third Performer Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Third Performer Name" name="p3name">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Third Performer Role</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Third Performer Role" name="p3role">
+           </div>
+
+           <div class="form-group">
+            <label for="input-5">Insert Image for Third Performer</label>
+            <input type="file" class="form-control" id="input-5" name="p3image">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Fourth Performer Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Fourth Performer Name" name="p4name">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Fourth Performer Role</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Fourth Performer Role" name="p4role">
+           </div>
+
+           <div class="form-group">
+            <label for="input-5">Insert Image for Fourth Performer</label>
+            <input type="file" class="form-control" id="input-5" name="p4image">
+           </div>
+
+           <div class="form-group">
+            <label for="input-4">Description</label>
+               <textarea class="form-control" cols="18" name="desc"></textarea>
+           </div>
+                <div class="form-group">
+            <label for="input-4">Detailed Address of Venue</label>
+               <textarea class="form-control" cols="18" name="address"></textarea>
+           </div>
+           <div class="form-group">
+            <label for="input-5">Insert Image for Event Cover</label>
+            <input type="file" class="form-control" id="input-5" name="image">
+           </div>
+
+           <div class="form-group">
+            <button type="submit" class="btn btn-light px-5"><i class="icon-lock"></i> Register</button>
+          </div>
+          </form>
+         </div>
+         </div>
+      </div>
+
+
+      <script>
+        // Get today's date in YYYY-MM-DD format
+        function getTodayDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Set the min attribute of the date input to today's date
+        const datePicker = document.getElementById('datePicker');
+        datePicker.min = getTodayDate();
+    </script>
+</body>
+</html>
+{% endblock %}

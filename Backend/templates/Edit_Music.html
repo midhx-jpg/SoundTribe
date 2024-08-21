@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sound Tribe</title>
+</head>
+<body>
+<div class="col-lg-10">
+         <div class="card">
+           <div class="card-body">
+           <div class="card-title">Edit Song Details..</div>
+           <hr>
+            <form action="{% url 'update_song' sid=data.id%}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+           <div class="form-group">
+            <label for="input-1">Song Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Enter Song Name" name="sname" value="{{data.Song_name}}">
+           </div>
+           <div class="form-group">
+            <label for="input-2">Artist Name</label>
+            <input type="text" class="form-control" id="input-2" placeholder="Enter Artist Name" name="aname" value="{{data.Artist_name}}">
+           </div>
+           <div class="form-group">
+            <label for="input-3">Genre</label>
+            <select class="form-control" name="genre">
+                            <option>{{data.Genre}}</option>
+                            {% for i in genre %}
+                            <option>{{i.Genre_name}}</option>
+                            {% endfor %}
+                        </select>
+           </div>
+           <div class="form-group">
+            <label for="input-4">Description</label>
+               <textarea class="form-control" cols="18" name="desc">{{data.Description}}</textarea>
+           </div>
+           <div class="form-group">
+            <label for="input-5">Change Image for Song Cover</label><br>
+
+               <img src="{{data.Song_Image.url}}" height="100px" width="100px">
+               <input type="file" class="form-control" id="input-5" name="image">
+           </div>
+                <div class="form-group">
+            <label for="input-5">Change Song</label><br>
+                    <audio preload="auto" controls>
+                        <source src="{{data.Song.url}}" type="audio/mp3">
+                      </audio>
+            <input type="file" class="form-control" id="input-6" name="song">
+           </div>
+
+           <div class="form-group">
+            <button type="submit" class="btn btn-light px-5"><i class="icon-lock"></i> Update</button>
+          </div>
+          </form>
+         </div>
+         </div>
+      </div>
+</body>
+</html>
+{% endblock %}

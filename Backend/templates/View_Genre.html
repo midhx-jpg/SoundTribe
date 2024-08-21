@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sound Tribe</title>
+</head>
+<body>
+<div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Manage Genre Details Here...</h5>
+			  <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Genre name</th>
+
+                    <th scope="col">Description</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                {% for i in data %}
+                  <tr>
+                    <td>{{i.Genre_name}}</td>
+
+                    <td>{{i.Description}}</td>
+
+                    <td>
+                      <a href="{% url 'delete_genre' gid=i.id %}"><button class="btn btn-light px-5">Delete</button></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+            </div>
+            </div>
+          </div>
+        </div>
+</body>
+</html>
+{% endblock %}

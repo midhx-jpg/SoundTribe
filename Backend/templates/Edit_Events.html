@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sound Tribe</title>
+</head>
+<body>
+<div class="col-lg-10">
+         <div class="card">
+           <div class="card-body">
+           <div class="card-title">Edit Event Details..</div>
+           <hr>
+            <form action="{% url 'update_event' eid=data.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+           <div class="form-group">
+            <label for="input-1">Event Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Enter Event Name" name="ename" value="{{data.Event_name}}">
+           </div>
+           <div class="form-group">
+            <label for="input-2">Stage/Hall of the Event</label>
+            <input type="text" class="form-control" id="input-2" placeholder="Enter Venue Name" name="venue" value="{{data.Venue_hall}}">
+           </div>
+           <div class="form-group">
+            <label for="input-3">Ticket Price</label>
+            <input type="text" class="form-control" id="input-3" placeholder="Enter Ticket Price" name="price" value="{{data.Price}}">
+           </div>
+
+                <div class="form-group">
+            <label for="input-3">Date of Event</label>
+                                <input type="text" class="form-control" id="date"  value="{{data.Date}}" readonly>
+            <input type="date" class="form-control" id="datePicker" placeholder="Enter Date" name="date" value="{{data.Date}}">
+           </div>
+
+                <div class="form-group">
+            <label for="input-3">Time(starting - ending)</label>
+            <input type="text" class="form-control" id="input-3" placeholder="Enter Time" name="time" value="{{data.Time}}">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Lead Performer Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Lead Performer Name" name="p1name" value="{{data.Performer1}}">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Lead Performer Role</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Lead Performer Role" name="p1role" value="{{data.Performer1role}}">
+           </div>
+
+           <div class="form-group">
+            <label for="input-5">Insert Image for Lead Performer</label>
+            <img src="{{data.Performer1Image.url}}" height="100px" width="100px">
+
+            <input type="file" class="form-control" id="input-5" name="p1image">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Second Performer Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Second Performer Name" name="p2name" value="{{data.Performer2}}">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Second Performer Role</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Second Performer Role" name="p2role" value="{{data.Performer2role}}">
+           </div>
+
+           <div class="form-group">
+            <label for="input-5">Insert Image for Second Performer</label>
+            <img src="{{data.Performer2Image.url}}" height="100px" width="100px">
+
+            <input type="file" class="form-control" id="input-5" name="p2image">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Third Performer Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Third Performer Name" name="p3name" value="{{data.Performer3}}">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Third Performer Role</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Third Performer Role" name="p3role" value="{{data.Performer3role}}">
+           </div>
+
+           <div class="form-group">
+            <label for="input-5">Insert Image for Third Performer</label>
+            <img src="{{data.Performer3Image.url}}" height="100px" width="100px">
+
+            <input type="file" class="form-control" id="input-5" name="p3image">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Fourth Performer Name</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Fourth Performer Name" name="p4name" value="{{data.Performer4}}">
+           </div>
+
+           <div class="form-group">
+            <label for="input-1">Fourth Performer Role</label>
+            <input type="text" class="form-control" id="input-1" placeholder="Fourth Performer Role" name="p4role" value="{{data.Performer4role}}">
+           </div>
+
+           <div class="form-group">
+            <label for="input-5">Insert Image for Fourth Performer</label>
+            <img src="{{data.Performer4Image.url}}" height="100px" width="100px">
+
+            <input type="file" class="form-control" id="input-5" name="p4image">
+           </div>
+           
+
+           <div class="form-group">
+            <label for="input-4">Description</label>
+               <textarea class="form-control" cols="18" name="desc">{{data.Description}}</textarea>
+           </div>
+                <div class="form-group">
+            <label for="input-4">Detailed Address of Venue</label>
+               <textarea class="form-control" cols="18" name="address">{{data.Venue_address}}</textarea>
+           </div>
+           <div class="form-group">
+            <label for="input-5">Insert Image for Event Cover</label><br>
+               <img src="{{data.Event_Image.url}}" height="100px" width="100px">
+            <input type="file" class="form-control" id="input-5" name="image">
+           </div>
+
+           <div class="form-group">
+            <button type="submit" class="btn btn-light px-5"><i class="icon-lock"></i> Update</button>
+          </div>
+          </form>
+         </div>
+         </div>
+      </div>
+
+      <script>
+        // Get today's date in YYYY-MM-DD format
+        function getTodayDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Set the min attribute of the date input to today's date
+        const datePicker = document.getElementById('datePicker');
+        datePicker.min = getTodayDate();
+    </script>
+      
+</body>
+</html>
+{% endblock %}

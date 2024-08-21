@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sound Tribe</title>
+</head>
+<body>
+<div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Manage Event Details Here...</h5>
+			  <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Event name</th>
+                    <th scope="col">Venue Hall</th>
+                    <th scope="col">Venue Address</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Lead Performer</th>
+                    <th scope="col">Lead Performer Role</th>
+                    <th scope="col">Lead PerformerImage</th>
+                    <th scope="col">Second Performer</th>
+                    <th scope="col">Second Performer Role</th>
+                    <th scope="col">Second Performer Image</th>
+                    <th scope="col">Third Performer</th>
+                    <th scope="col">Third Performer Role</th>
+                    <th scope="col">Third Performer Image</th>
+                    <th scope="col">Fourth Performer</th>
+                    <th scope="col">Fourth Performer Role</th>
+                    <th scope="col">Fourth Performer Image</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for i in data %}
+                  <tr>
+                    <td>{{i.Event_name}}</td>
+                    <td>{{i.Venue_hall}}</td>
+                    <td>{{i.Venue_address}}</td>
+                    <td>{{i.Price}}</td>
+                    <td>
+                      <img src="{{i.Event_Image.url}}" height="100px" width="100px">
+                    </td>
+                    <td>{{i.Performer1}}</td>
+                    <td>{{i.Performer1role}}</td>
+                    <td>
+                      <img src="{{i.Performer1Image.url}}" height="100px" width="100px">
+                    </td>
+                    <td>{{i.Performer2}}</td>
+                    <td>{{i.Performer2role}}</td>
+                    <td>
+                      <img src="{{i.Performer2Image.url}}" height="100px" width="100px">
+                    </td>
+                    <td>{{i.Performer3}}</td>
+                    <td>{{i.Performer3role}}</td>
+                    <td>
+                      <img src="{{i.Performer3Image.url}}" height="100px" width="100px">
+                    </td>
+                    <td>{{i.Performer4}}</td>
+                    <td>{{i.Performer4role}}</td>
+                    <td>
+                      <img src="{{i.Performer4Image.url}}" height="100px" width="100px">
+                    </td>
+                    <td>{{i.Description}}</td>
+                    <td>{{i.Date}}</td>
+                    <td>{{i.Time}}</td>
+                    <td>
+                     <a href="{% url 'edit_event' eid=i.id %}"><button class="btn btn-light px-5">Update</button></a>
+                    </td>
+                    <td>
+                      <a href="{% url 'delete_event' eid=i.id %}"><button class="btn btn-light px-5">Delete</button></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+            </div>
+            </div>
+          </div>
+        </div>
+</body>
+</html>
+{% endblock %}

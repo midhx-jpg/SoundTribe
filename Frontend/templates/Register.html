@@ -1,0 +1,305 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title -->
+    <title>Register in Sound Tribe</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'assets/img/core-img/favicon.ico' %}">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="lds-ellipsis">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <!-- Navbar Area -->
+        <div class="oneMusic-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                        <!-- Nav brand -->
+                        <a href="{% url 'home'%}" class="nav-brand"><img src="{% static 'assets/img/core-img/sound.png' %}" alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
+                        </div>
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- Close Button -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="{% url 'home'%}">Home</a></li>
+                                    <li><a href="{% url 'album' alphabet="all" %}">Albums</a></li>
+                                    <li><a href="#">Genres</a>
+                                        <ul class="dropdown">
+                                            {% for i in genre %}
+                                            <li><a href="{% url 'singlegenre' genrename=i.Genre_name%}">{{i.Genre_name}}</a></li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </li>
+                                    <li><a href="{% url 'event' %}">Events</a></li>
+                                    <li><a href="{% url 'news' %}">News</a></li>
+                                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                                </ul>
+
+                                <!-- Login/Register & Cart Button -->
+                                <div class="login-register-cart-button d-flex align-items-center">
+                                    <!-- Login/Register -->
+
+                                    <div class="login-register-btn mr-50">
+                                        {% if user.is_authenticated %}
+                                        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Hey {{request.user.username}}/Logout</a> </li>
+                                        {% else %}
+	                                    <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register/Login</a></li>
+                                        {% endif %}
+
+
+                                    </div>
+
+                                    <!-- Cart Button -->
+                                    <!-- <div class="cart-btn">
+                                        <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <!-- Nav End -->
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <section class="breadcumb-area bg-img bg-overlay" style="background-image: url({% static 'assets/img/bg-img/bg-3.jpg' %});">
+        <div class="bradcumbContent">
+<!--            <p>See what’s new</p>-->
+            <h2>Register</h2>
+        </div>
+    </section>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <!-- ##### Login Area Start ##### -->
+    <section class="login-area section-padding-100">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="login-content">
+                        <h3>Welcome to Sound Tribe fam</h3>
+                        <!-- Login Form -->
+                        <div class="login-form">
+                            <form action="" method="POST" name="myForm">
+                                {% csrf_token %}
+                                {{form.as_p}}
+                                 <!-- <div class="form-group">
+                                    <label for="exampleInputPassword1">First name</label>
+                                    <input type="text" class="form-control"  placeholder="First name" name="fname" required>
+                                </div>
+                                   <div class="form-group">
+                                    <label for="exampleInputPassword1">Last name</label>
+                                    <input type="text" class="form-control"  placeholder="Last name" name="lname" required>
+                                </div>
+                                   <div class="form-group">
+                                    <label for="exampleInputPassword1">Username</label>
+                                    <input type="text" class="form-control"  placeholder="username" name="uname" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail" name="email">
+                                    <small id="emailHelp" class="form-text text-muted"><i class="fa fa-lock mr-2"></i>We'll never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="pass1" required>
+                                </div>
+                                 <div class="form-group">
+                                    <label for="exampleInputPassword1">Confirm Password</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Confirm Password" name="pass2" required>
+                                </div> -->
+                                <button type="submit" class="btn oneMusic-btn mt-30">Register</button><br><br>
+                                <h6>Already a member ?</h6>
+                            </form>
+                                                            <a href="{% url 'login' %}"><button class="btn oneMusic-btn mt-30">Login</button></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Login Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url({% static 'assets/img/bg-img/bg-2.jpg' %});">
+        <!--        <div class="container">-->
+        <!--            <div class="row">-->
+        <!--                <div class="col-12">-->
+        <!--                    <div class="section-heading white wow fadeInUp" data-wow-delay="100ms">-->
+        <!--                        <p>See what’s new</p>-->
+        <!--                        <h2>Get In Touch</h2>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        
+        <!--            <div class="row">-->
+        <!--                <div class="col-12">-->
+        <!--                    &lt;!&ndash; Contact Form Area &ndash;&gt;-->
+        <!--                    <div class="contact-form-area">-->
+        <!--                        <form action="#" method="post">-->
+        <!--                            <div class="row">-->
+        <!--                                <div class="col-md-6 col-lg-4">-->
+        <!--                                    <div class="form-group wow fadeInUp" data-wow-delay="100ms">-->
+        <!--                                        <input type="text" class="form-control" id="name" placeholder="Name">-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="col-md-6 col-lg-4">-->
+        <!--                                    <div class="form-group wow fadeInUp" data-wow-delay="200ms">-->
+        <!--                                        <input type="email" class="form-control" id="email" placeholder="E-mail">-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="col-lg-4">-->
+        <!--                                    <div class="form-group wow fadeInUp" data-wow-delay="300ms">-->
+        <!--                                        <input type="text" class="form-control" id="subject" placeholder="Subject">-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="col-12">-->
+        <!--                                    <div class="form-group wow fadeInUp" data-wow-delay="400ms">-->
+        <!--                                        <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>-->
+        <!--                                    </div>-->
+        <!--                                </div>-->
+        <!--                                <div class="col-12 text-center wow fadeInUp" data-wow-delay="500ms">-->
+        <!--                                    <button class="btn oneMusic-btn mt-30" type="submit">Send <i class="fa fa-angle-double-right"></i></button>-->
+        <!--                                </div>-->
+        <!--                            </div>-->
+        <!--                        </form>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+            </section>
+            <!-- ##### Contact Area End ##### -->
+        
+            <!-- ##### Footer Area Start ##### -->
+            <footer class="footer-area">
+                <div class="container">
+                    <div class="row d-flex flex-wrap align-items-center">
+                        <div class="col-12 col-md-6">
+                            <a href="{% url 'home'%}"><img src="{% static 'assets/img/core-img/sound.png' %}" alt="" style="height:180px"></a>
+                            <p class="copywrite-text"><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Midhun Philip<i class="fa fa-heart-o" aria-hidden="true"></i>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                        </div>
+        
+                        <div class="col-12 col-md-6">
+                            <div class="footer-nav">
+                                <ul>
+                                    <li><a href="{% url 'home'%}">Home</a></li>
+                                    <li><a href="{% url 'album' alphabet="all"%}">Albums</a></li>
+                                    <li><a href="{% url 'event'%}">Events</a></li>
+                                    <li><a href="{% url 'news'%}">News</a></li>
+                                    <li><a href="{% url 'contact'%}">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+    <!-- ##### Footer Area Start ##### -->
+
+    <!-- ##### All Javascript Script ##### -->
+    <!-- jQuery-2.2.4 js -->
+   <script src="{% static 'assets/js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <!-- Popper js -->
+    <script src="{% static 'assets/js/bootstrap/popper.min.js' %}"></script>
+    <!-- Bootstrap js -->
+    <script src="{% static 'assets/js/bootstrap/bootstrap.min.js' %}"></script>
+    <!-- All Plugins js -->
+    <script src="{% static 'assets/js/plugins/plugins.js' %}"></script>
+    <!-- Active js -->
+    <script src="{% static 'assets/js/active.js' %}"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+      {% for i in messages %}
+              {% if i.tags == 'warning' %}
+                            <script>
+                                  swal('{{i}}', ' ', 'warning');
+                            </script>
+              {% elif i.tags == 'error' %}
+                            <script>
+                                  swal('{{i}}', ' ', 'error');
+                            </script>
+              {% elif i.tags == 'info' %}
+                            <script>
+                                  swal('{{i}}', ' ', 'info');
+                            </script>
+              {% else %}
+                            <script>
+                                  swal('{{i}}', ' ', 'success');
+                            </script>
+              {% endif %}
+      {% endfor %}
+{% endif %}
+
+<script>
+    function validate_pass(){
+        var x=document.myForm.pass1.value;
+        var y=document.myForm.pass2.value;
+        if (x==y) {
+            return true;
+        }
+        else if (x.length<6 & y.length<6) {
+            alert("Password must be 6 character Long!")
+        }
+        else {
+            alert("Password doesn't match!")
+            return false;
+        }
+    }
+     function validate_login(){
+        var y=document.myForm.pass.value;
+         if (y.length<6) {
+            alert("Password must be 6 character Long!")
+        }
+
+    }
+</script>
+
+</body>
+
+</html>
